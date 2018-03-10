@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <html>
     <h1> Hey Ya'll, Lets Yahtzee</h1>
     <button onclick='createDice()'>Throw Dice</button>
@@ -15,16 +18,11 @@
 
         function createDice(){
             var dicenumbers=[1,2,3,4,5,6];
-            var dice1Nr = dicenumbers[Math.floor(Math.random() * dicenumbers.length)];
-            var dice2Nr = dicenumbers[Math.floor(Math.random() * dicenumbers.length)];
-            var dice3Nr = dicenumbers[Math.floor(Math.random() * dicenumbers.length)];
-            var dice4Nr = dicenumbers[Math.floor(Math.random() * dicenumbers.length)];
-            var dice5Nr = dicenumbers[Math.floor(Math.random() * dicenumbers.length)];
-            document.getElementById('dice1').value=dice1Nr;
-            document.getElementById('dice2').value=dice2Nr;
-            document.getElementById('dice3').value=dice3Nr;
-            document.getElementById('dice4').value=dice4Nr;
-            document.getElementById('dice5').value=dice5Nr;
+            document.getElementById('dice1').value=dicenumbers[Math.floor(Math.random() * dicenumbers.length)];
+            document.getElementById('dice2').value=dicenumbers[Math.floor(Math.random() * dicenumbers.length)];
+            document.getElementById('dice3').value=dicenumbers[Math.floor(Math.random() * dicenumbers.length)];
+            document.getElementById('dice4').value=dicenumbers[Math.floor(Math.random() * dicenumbers.length)];
+            document.getElementById('dice5').value=dicenumbers[Math.floor(Math.random() * dicenumbers.length)];
         }
         
     </script>
