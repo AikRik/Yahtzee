@@ -42,7 +42,7 @@ session_start();
     $_SESSION[$scoreCheck] = [];
     
     $diceScores = array($_POST['dice1'],$_POST['dice2'],$_POST['dice3'],$_POST['dice4'],$_POST['dice5']);
-    $_SESSION[$allScores] = [];
+
    
     if(isset($_POST['submitbutton'])) {
         scoreBd();
@@ -52,12 +52,14 @@ session_start();
         threeOfaKind();
         bigStreet();
         smallStreet();
-        checkScore(); 
+        checkScore();
+        scoreChart();
     };
 
 /*======================================== PUSHING THE RESULT TO AN EMPTY ARRAY (DNWY) ======================================================*/    
     function scoreBd(){
         global $diceScores;
+        $_SESSION[$allScores] = array();
         
         array_push($_SESSION[$allScores], $diceScores);
 
@@ -148,7 +150,7 @@ session_start();
             return $smallStreet = false;
         }
     }
-/*======================================== RESETTING SCORE (DNWY) ======================================================*/       
+/*======================================== RESETTING SCORE ======================================================*/       
     if(isset($_POST['resetScore'])){
        $_SESSION["score"] =  $_SESSION["score"] = 0;
         echo "<h4>The score has been reset</h4><br />";
@@ -161,11 +163,12 @@ session_start();
         global $bigStreet;
         global $smallStreet;
         global $fourOfaKind;
+        global $chance;
         
         $diceScores = array($_POST['dice1'],$_POST['dice2'],$_POST['dice3'],$_POST['dice4'],$_POST['dice5']);
         $allScores = [];
 
-        if($_SESSION['score'] >= 100000){
+        if($_SESSION['score'] >= 100){
            echo "You Win!";
         }elseif($yahtzee){
             $_SESSION["score"] =  $_SESSION["score"] + 50;
@@ -188,8 +191,59 @@ session_start();
         }else{
             $_SESSION["score"] =  $_SESSION["score"] + array_sum($diceScores);
             echo "<div id='points'> <h2>Chance! The sum of your dices has been added!</h2><br /><h3>Score = ".$_SESSION[score]."</h3><div><br />";
+            return $chance = true;
         }
     };
+/*======================================== UPDATING SCORECHART (DNWY)======================================================*/    
+    function scoreChart(){
+            global $yahtzee;
+            global $fullHouse;
+            global $fourOfaKind;
+            global $threeOfaKind;
+            global $bigStreet;
+            global $smallStreet;
+            global $chance;
+            $SESSION[$totalscore] = array();
+
+        if($yahtzee){
+            array_push($SESSION[$totalscore], "Yahtzee");
+            echo "<div class='scorechart'> <ul> <li> Yahtzee 'Pocketed'!</li></ul>";
+            
+        }
+        if($fullHouse){
+            array_push($SESSION[$totalscore], "Full House");
+            echo "<div class='scorechart'> <ul> <li> Full House 'Pocketed'!</li></ul>";
+        }
+        if($fourOfaKind){
+            array_push($SESSION[$totalscore], "Four Of A Kind");
+            echo "<div class='scorechart'> <ul> <li> Four Of A Kind 'Pocketed'!</li></ul>";
+        }
+        if($threeOfaKind){
+            array_push($SESSION[$totalscore], "Three Of A Kind");
+            echo "<div class='scorechart'> <ul> <li> Three Of A Kind 'Pocketed'!</li></ul>";
+        }
+        if($bigStreet){
+            array_push($SESSION[$totalscore], "Big Street");
+            echo "<div class='scorechart'> <ul> <li> Big Street 'Pocketed'!</li></ul>";
+        }
+        if($smallStreet){
+            array_push($SESSION[$totalscore], "Small Street");
+            echo "<div class='scorechart'> <ul> <li> Small Street 'Pocketed'!</li></ul>";
+        }
+        if($chance){
+            array_push($SESSION[$totalscore], "Chance");
+            echo "<div class='scorechart'> <ul> <li> Chance 'Pocketed'!</li></ul>";
+        }
+        $li1 = $SESSION[$totalscore[0][0]];
+        $li2 = $SESSION[$totalscore[0][1]];
+        $li3 = $SESSION[$totalscore[0][2]];
+        $li4 = $SESSION[$totalscore[0][3]];
+        $li5 = $SESSION[$totalscore[0][4]];
+        $li6 = $SESSION[$totalscore[0][5]];
+        $li7 = $SESSION[$totalscore[0][6]];
+        
+        echo "<ul><li>".$li1."</li><li>".$li2."</li><li>".$li3."</li><li>".$li4."</li><li>".$li5."</li><li>".$li6."</li></ul>";
+    }
 ?>    
  </html>   
 /* 
