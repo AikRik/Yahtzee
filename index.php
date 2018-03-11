@@ -148,6 +148,11 @@ session_start();
             return $smallStreet = false;
         }
     }
+/*======================================== RESETTING SCORE (DNWY) ======================================================*/       
+    if(isset($_POST['resetScore'])){
+       $_SESSION["score"] =  $_SESSION["score"] = 0;
+        echo "<h4>The score has been reset</h4><br />";
+    }
 /*======================================== CHECKING THE SCORE ======================================================*/
     function checkScore(){
         global $yahtzee;
@@ -185,11 +190,6 @@ session_start();
             echo "<div id='points'> <h2>Chance! The sum of your dices has been added!</h2><br /><h3>Score = ".$_SESSION[score]."</h3><div><br />";
         }
     };
-/*======================================== RESETTING SCORE (DNWY) ======================================================*/       
-    if(isset($_POST['resetScore'])){
-        $_SESSION[$score] = 0;
-        echo "The score has been reset ".$_SESSION[$score]."<br />";
-    }
 ?>    
  </html>   
 /* 
